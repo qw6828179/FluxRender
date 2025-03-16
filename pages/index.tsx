@@ -113,7 +113,87 @@ const randomPromptExamples: Record<string, string[]> = {
   ]
 };
 
-// 灵感画廊图片 - 多语言
+// 静态灵感画廊图片
+const staticGalleryImages = [
+  {
+    url: 'https://images.unsplash.com/photo-1635776062127-d379bfcba9f9?q=80&w=2532&auto=format&fit=crop',
+    prompt: '未来科技城市的夜景，霓虹灯光照亮高耸的摩天大楼'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=2574&auto=format&fit=crop',
+    prompt: '宁静的湖泊，周围是秋天的森林，远处有雪山'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1581822261290-991b38693d1b?q=80&w=2670&auto=format&fit=crop',
+    prompt: '科幻实验室内的机器人工程师正在工作'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1501862700950-18382cd41497?q=80&w=2619&auto=format&fit=crop',
+    prompt: '漂浮在太空中的水晶城堡，背景是五彩斑斓的星云'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=2590&auto=format&fit=crop',
+    prompt: '古老的图书馆，阳光透过彩色玻璃窗照射进来'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+    prompt: '赛博朋克风格的街道，雨水反射着霓虹灯光'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?q=80&w=2560&auto=format&fit=crop',
+    prompt: '幻想世界中的巨大树屋城市，藤蔓和瀑布环绕'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1682686580391-615b1f28e5ee?q=80&w=2670&auto=format&fit=crop',
+    prompt: '深海探索潜艇遇到发光的海洋生物'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2494&auto=format&fit=crop',
+    prompt: '漂浮在云端的未来城市，飞行器穿梭其中'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=2672&auto=format&fit=crop',
+    prompt: '被遗弃的太空站，宇航员正在探索'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2670&auto=format&fit=crop',
+    prompt: '水晶洞穴，发光的矿物照亮了整个空间'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1626544827763-d516dce335e2?q=80&w=2574&auto=format&fit=crop',
+    prompt: '未来的生物实验室，充满了奇异的植物和生物'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1518562180175-34a163b1a9a6?q=80&w=2574&auto=format&fit=crop',
+    prompt: '漂浮在云端的古代神殿，周围环绕着飞龙'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2670&auto=format&fit=crop',
+    prompt: '霓虹灯闪烁的赛博朋克酒吧，充满了各种奇异的角色'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1635776062127-d379bfcba9f9?q=80&w=2532&auto=format&fit=crop',
+    prompt: '被遗忘的地下城市，古老的建筑与先进的科技融合'
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1536566482680-fca31930a0bd?q=80&w=2574&auto=format&fit=crop',
+    prompt: '外星景观，有着奇特的植物和多彩的天空'
+  }
+];
+
+// 多语言静态灵感画廊
+const getStaticGalleryImages = (language: string) => {
+  // 根据语言获取对应的提示词
+  const prompts = randomPromptExamples[language] || randomPromptExamples['zh-CN'];
+  
+  // 返回静态图片，但根据语言更新提示词
+  return staticGalleryImages.map((image, index) => ({
+    url: image.url,
+    prompt: prompts[index % prompts.length] // 确保不会超出提示词数组范围
+  }));
+};
+
+// 灵感画廊图片 - 多语言（已弃用，保留作为参考）
 const getInspirationGalleryImages = (language: string) => {
   const prompts = randomPromptExamples[language] || randomPromptExamples['zh-CN'];
   return prompts.map(prompt => ({
@@ -148,7 +228,8 @@ export default function Home() {
   useEffect(() => {
     if (mounted) {
       const currentLanguage = i18n.language || 'zh-CN';
-      setInspirationImages(getInspirationGalleryImages(currentLanguage));
+      // 使用静态图片替代动态生成的图片
+      setInspirationImages(getStaticGalleryImages(currentLanguage));
     }
   }, [i18n.language, mounted]);
   
