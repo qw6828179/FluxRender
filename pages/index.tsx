@@ -38,7 +38,7 @@ const aspectRatioOptions = [
 ];
 
 // 多语言随机提示示例
-const randomPromptExamples = {
+const randomPromptExamples: Record<string, string[]> = {
   'zh-CN': [
     "一个未来科技城市的夜景，霓虹灯光照亮高耸的摩天大楼",
     "一个宁静的湖泊，周围是秋天的森林，远处有雪山",
@@ -114,7 +114,7 @@ const randomPromptExamples = {
 };
 
 // 灵感画廊图片 - 多语言
-const getInspirationGalleryImages = (language) => {
+const getInspirationGalleryImages = (language: string) => {
   const prompts = randomPromptExamples[language] || randomPromptExamples['zh-CN'];
   return prompts.map(prompt => ({
     url: `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=768&height=768&nologo=true`,
@@ -142,7 +142,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState('');
   const [countdown, setCountdown] = useState(0);
-  const [inspirationImages, setInspirationImages] = useState([]);
+  const [inspirationImages, setInspirationImages] = useState<Array<{url: string, prompt: string}>>([]);
   
   // 当语言变化时更新灵感画廊
   useEffect(() => {
