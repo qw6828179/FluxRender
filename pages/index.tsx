@@ -203,7 +203,7 @@ export default function Home() {
   // 生成图像
   const generateImage = async () => {
     if (!prompt.trim()) {
-      toast.error('请输入提示词！');
+      toast.error(t('generator.promptRequired'));
       return;
     }
 
@@ -234,7 +234,7 @@ export default function Home() {
         aspectRatio: selectedAspectRatio,
         style: selectedStyle
       }, {
-        timeout: 60000, // 60秒超时
+        timeout: 30000, // 30秒超时
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
@@ -243,20 +243,30 @@ export default function Home() {
       
       console.log('API响应:', response.data);
       
+      // 即使API立即返回，也保持倒计时效果，让用户感觉在生成中
+      // 这里不立即设置图像，而是等待一段时间后再设置
       if (response.data && response.data.success && response.data.outputs) {
-        setGeneratedImages(response.data.outputs);
-        // 默认选择第一张图片
-        setSelectedImageIndex(0);
+        const imageUrls = response.data.outputs;
         
-        // 如果有警告信息，显示给用户
-        if (response.data.warning) {
-          toast.warning(response.data.warning);
-        }
+        // 保存图像URL但不立即显示
+        const showImagesAfterDelay = () => {
+          if (countdown <= 0) {
+            setGeneratedImages(imageUrls);
+            setSelectedImageIndex(0);
+            setIsGenerating(false);
+            
+            // 如果有警告信息，显示给用户
+            if (response.data.warning) {
+              toast.warning(response.data.warning);
+            }
+          } else {
+            // 如果倒计时还没结束，继续等待
+            setTimeout(showImagesAfterDelay, 1000);
+          }
+        };
         
-        // 如果有失败的图片，显示提示
-        if (response.data.failedCount && response.data.failedCount > 0) {
-          toast.info(`${response.data.failedCount}张图片可能加载较慢，请耐心等待`);
-        }
+        // 开始延迟显示过程
+        showImagesAfterDelay();
       } else {
         throw new Error('生成图像失败: ' + (response.data?.error || '未知错误'));
       }
@@ -264,17 +274,40 @@ export default function Home() {
       console.error('生成图像时出错:', err);
       const errorMessage = err.response?.data?.error || err.message || '未知错误';
       setError(`生成图像时出错: ${errorMessage}`);
-      toast.error('生成图像失败，请稍后再试！');
+      toast.error(t('generator.generateFailed'));
       
-      // 如果错误响应中包含备用图像，仍然显示它们
+      // 如果错误响应中包含备用图像，仍然显示它们，但等待倒计时结束
       if (err.response?.data?.outputs && Array.isArray(err.response.data.outputs)) {
-        setGeneratedImages(err.response.data.outputs);
-        setSelectedImageIndex(0);
-        toast.info('显示备用图像');
+        const backupImages = err.response.data.outputs;
+        
+        const showBackupImagesAfterDelay = () => {
+          if (countdown <= 0) {
+            setGeneratedImages(backupImages);
+            setSelectedImageIndex(0);
+            setIsGenerating(false);
+            toast.info(t('generator.showingBackupImages'));
+          } else {
+            // 如果倒计时还没结束，继续等待
+            setTimeout(showBackupImagesAfterDelay, 1000);
+          }
+        };
+        
+        // 开始延迟显示过程
+        showBackupImagesAfterDelay();
+      } else {
+        // 如果没有备用图像，等待倒计时结束后再结束生成状态
+        const endGeneratingAfterDelay = () => {
+          if (countdown <= 0) {
+            setIsGenerating(false);
+          } else {
+            // 如果倒计时还没结束，继续等待
+            setTimeout(endGeneratingAfterDelay, 1000);
+          }
+        };
+        
+        // 开始延迟结束过程
+        endGeneratingAfterDelay();
       }
-    } finally {
-      setIsGenerating(false);
-      setCountdown(0);
     }
   };
 

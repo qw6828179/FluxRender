@@ -30,24 +30,6 @@ function buildPollinationsImageUrl(prompt: string, params: Record<string, any> =
   return url;
 }
 
-// 检查图片URL是否可访问 - 简化版本，避免超时
-async function isImageAccessible(url: string): Promise<boolean> {
-  try {
-    // 使用更短的超时时间，避免在Vercel上超时
-    const response = await axios.head(url, { 
-      timeout: 3000,
-      headers: {
-        'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
-    });
-    return response.status === 200;
-  } catch (error) {
-    console.error(`图片URL检查失败: ${url}`, error);
-    return false;
-  }
-}
-
 // 生成随机种子
 function generateRandomSeed() {
   return Math.floor(Math.random() * 1000000);
@@ -93,23 +75,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ success: false, error: '缺少提示词参数' });
     }
 
-    // 在Vercel环境中，减少模拟处理时间，避免超时
-    // 检查是否在Vercel环境中
-    const isVercel = process.env.VERCEL === '1';
-    
-    if (isVercel) {
-      // Vercel环境中使用较短的延迟
-      await new Promise(resolve => setTimeout(resolve, 5000));
-      console.log('Vercel环境，使用5秒延迟');
-    } else {
-      // 本地环境使用完整的20秒延迟
-      await new Promise(resolve => setTimeout(resolve, 20000));
-      console.log('本地环境，使用20秒延迟');
-    }
-
     // 准备生成图像
     const outputs: string[] = [];
-    const failedOutputs: number[] = [];
     
     // 根据风格调整提示词
     let enhancedPrompt = prompt;
@@ -119,7 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log('增强后的提示词:', enhancedPrompt);
 
-    // 生成指定数量的图像URL
+    // 直接生成指定数量的图像URL，不进行可访问性检查
     for (let i = 0; i < count; i++) {
       const seed = generateRandomSeed();
       console.log(`生成图像 ${i+1}/${count}, 种子值: ${seed}`);
@@ -129,53 +96,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         width,
         height,
         seed,
-        nologo: true
+        nologo: true,
+        negative_prompt: negative_prompt
       });
       
       console.log(`图像URL ${i+1}: ${imageUrl}`);
-      
-      // 在Vercel环境中，跳过可访问性检查以避免超时
-      if (isVercel) {
-        outputs.push(imageUrl);
-        continue;
-      }
-      
-      // 本地环境中检查图片URL是否可访问
-      const isAccessible = await isImageAccessible(imageUrl);
-      
-      if (isAccessible) {
-        console.log(`图像 ${i+1} 可访问`);
-        outputs.push(imageUrl);
-      } else {
-        console.log(`图像 ${i+1} 不可访问，使用备用URL`);
-        failedOutputs.push(i);
-        // 使用备用URL
-        const backupUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=${width}&height=${height}&seed=${seed + 1000}&nologo=true`;
-        outputs.push(backupUrl);
-      }
+      outputs.push(imageUrl);
     }
 
-    // 如果所有图片生成失败，返回模拟数据
-    if (outputs.length === 0) {
-      console.log('所有图像生成失败，返回模拟数据');
-      // 模拟图像URL
-      const mockImages = mockImageUrls.slice(0, count);
-      
-      return res.status(200).json({
-        success: true,
-        outputs: mockImages,
-        warning: '无法生成真实图像，返回模拟数据'
-      });
-    }
-
-    console.log(`成功生成 ${outputs.length} 张图像`);
+    console.log(`成功生成 ${outputs.length} 张图像URL`);
     
     // 返回生成的图像URL
     return res.status(200).json({
       success: true,
-      outputs,
-      failedCount: failedOutputs.length,
-      failedIndexes: failedOutputs
+      outputs
     });
   } catch (error: any) {
     console.error('生成图像时出错:', error);
