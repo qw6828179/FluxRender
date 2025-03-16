@@ -216,6 +216,14 @@ export default function Home() {
     try {
       const aspectRatioConfig = getSelectedAspectRatioConfig();
       
+      console.log('开始生成图像，参数:', {
+        prompt,
+        style: selectedStyle,
+        aspectRatio: selectedAspectRatio,
+        width: aspectRatioConfig.width,
+        height: aspectRatioConfig.height
+      });
+      
       // 使用本地API路由，该路由会调用Pollinations API
       const response = await axios.post('/api/generate', {
         prompt: prompt,
@@ -225,7 +233,15 @@ export default function Home() {
         count: 3, // 一次生成3张图片
         aspectRatio: selectedAspectRatio,
         style: selectedStyle
+      }, {
+        timeout: 60000, // 60秒超时
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
       });
+      
+      console.log('API响应:', response.data);
       
       if (response.data && response.data.success && response.data.outputs) {
         setGeneratedImages(response.data.outputs);
@@ -242,12 +258,20 @@ export default function Home() {
           toast.info(`${response.data.failedCount}张图片可能加载较慢，请耐心等待`);
         }
       } else {
-        throw new Error('生成图像失败');
+        throw new Error('生成图像失败: ' + (response.data?.error || '未知错误'));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('生成图像时出错:', err);
-      setError('生成图像时出错。请稍后再试。');
+      const errorMessage = err.response?.data?.error || err.message || '未知错误';
+      setError(`生成图像时出错: ${errorMessage}`);
       toast.error('生成图像失败，请稍后再试！');
+      
+      // 如果错误响应中包含备用图像，仍然显示它们
+      if (err.response?.data?.outputs && Array.isArray(err.response.data.outputs)) {
+        setGeneratedImages(err.response.data.outputs);
+        setSelectedImageIndex(0);
+        toast.info('显示备用图像');
+      }
     } finally {
       setIsGenerating(false);
       setCountdown(0);
@@ -498,7 +522,15 @@ export default function Home() {
                           const target = e.target as HTMLImageElement;
                           const seed = Math.floor(Math.random() * 1000000);
                           const aspectRatioConfig = getSelectedAspectRatioConfig();
+                          // 尝试使用不同的参数组合
                           target.src = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${aspectRatioConfig.width}&height=${aspectRatioConfig.height}&seed=${seed}&nologo=true`;
+                          
+                          // 添加错误处理，如果再次失败，使用备用图像
+                          target.onerror = () => {
+                            console.error('备用URL也加载失败，使用占位图像');
+                            target.src = 'https://images.unsplash.com/photo-1635776062127-d379bfcba9f9?q=80&w=2532&auto=format&fit=crop';
+                            toast.warning('图像加载失败，显示占位图像');
+                          };
                         }}
                       />
                       {selectedImageIndex === index && (

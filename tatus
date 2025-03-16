@@ -1,0 +1,5 @@
+[33mcommit 91539225de8b93fbd66f9ad4c33844411641b234[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Your Name <your.email@example.com>
+Date:   Sun Mar 16 13:32:44 2025 +0800
+
+    更新依赖：添加react-error-boundary组件

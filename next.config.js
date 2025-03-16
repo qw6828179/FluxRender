@@ -10,11 +10,29 @@ const nextConfig = {
     ],
     unoptimized: true, // 对于外部图片源禁用优化
     minimumCacheTTL: 60, // 缓存图片60秒
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.pollinations.ai',
+        pathname: '/prompt/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      }
+    ],
   },
-  // 增加图片请求超时时间
-  httpAgentOptions: {
-    keepAlive: true,
-    timeout: 60000, // 60秒超时
+  // API路由配置
+  api: {
+    bodyParser: {
+      sizeLimit: '1mb',
+    },
+    responseLimit: false,
+  },
+  // 增加请求超时时间
+  experimental: {
+    serverComponentsExternalPackages: ['axios'],
   },
   // 禁用i18n的SSR功能
   i18n: {
