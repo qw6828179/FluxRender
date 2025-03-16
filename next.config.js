@@ -6,7 +6,10 @@ const nextConfig = {
       'pollinations.ai',
       'image.pollinations.ai',
       'replicate.delivery',
-      'images.unsplash.com'
+      'images.unsplash.com',
+      'modelscope.cn',
+      'api.modelscope.cn',
+      'modelscope-studio-private.oss-cn-hangzhou.aliyuncs.com'
     ],
     unoptimized: true, // 对于外部图片源禁用优化
     minimumCacheTTL: 60, // 缓存图片60秒
@@ -19,6 +22,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'modelscope-studio-private.oss-cn-hangzhou.aliyuncs.com',
         pathname: '/**',
       }
     ],
