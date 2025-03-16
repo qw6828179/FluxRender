@@ -1,0 +1,126 @@
+{
+  "title": "Dome AI - Free AI Image Generator",
+  "description": "Dome AI is a free, no-login AI image generator built on Pollinations AI with a tech-style design.",
+  "nav": {
+    "features": "Features",
+    "gallery": "Gallery",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Free, Unlimited AI Image Generation",
+    "subtitle": "Use Dome AI to create stunning AI-generated images instantly, with no login or payment required. Built on the powerful Pollinations AI technology."
+  },
+  "generator": {
+    "prompt": "Prompt",
+    "promptPlaceholder": "Describe the image you want to generate...",
+    "style": "Style",
+    "aspectRatio": "Aspect Ratio",
+    "negativePrompt": "Negative Prompt (Optional)",
+    "negativePromptPlaceholder": "Describe elements you don't want in the image...",
+    "generateButton": "Generate Images",
+    "generating": "Generating 3 images, please wait...",
+    "estimatedTime": "Estimated time remaining: {{countdown}} seconds",
+    "generatedImages": "Generated Images",
+    "downloadImage": "Download Image",
+    "errorGenerating": "Error generating images. Please try again later.",
+    "errorToast": "Failed to generate images, please try again later!",
+    "promptRequired": "Please enter a prompt!",
+    "copyPrompt": "Prompt copied to clipboard!",
+    "downloadStarted": "Image download started!",
+    "loadingSlow": "Image loading slowly, trying to reload...",
+    "failedCount": "{{count}} images may load slowly, please be patient"
+  },
+  "gallery": {
+    "title": "Inspiration Gallery",
+    "subtitle": "Explore stunning images created by other users with Dome AI to get creative inspiration."
+  },
+  "features": {
+    "title": "Why Choose Dome AI?",
+    "subtitle": "We provide the simplest, most powerful AI image generation experience, completely free and without login.",
+    "free": {
+      "title": "Completely Free",
+      "description": "Use all features without payment, with no hidden fees or subscriptions."
+    },
+    "noLogin": {
+      "title": "No Login Required",
+      "description": "Start generating images without registration or login, protecting your privacy."
+    },
+    "highQuality": {
+      "title": "High-Quality Output",
+      "description": "Generate stunning high-quality images based on the powerful Pollinations AI API."
+    },
+    "styles": {
+      "title": "Diverse Styles",
+      "description": "Support for multiple artistic styles, color schemes, and composition options to meet your creative needs."
+    },
+    "batch": {
+      "title": "Batch Generation",
+      "description": "Generate multiple images at once and choose the most satisfying one, improving efficiency."
+    },
+    "ratios": {
+      "title": "Multiple Aspect Ratios",
+      "description": "Support for square, portrait, and landscape image ratios to suit different scenario needs."
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Common questions about Dome AI.",
+    "questions": {
+      "free": {
+        "question": "Is Dome AI really completely free?",
+        "answer": "Yes, Dome AI is completely free to use, with no hidden fees or subscription requirements. We believe AI image generation should be open to everyone."
+      },
+      "commercial": {
+        "question": "Can I use the generated images for commercial purposes?",
+        "answer": "Yes, you can use the generated images for personal and commercial projects. However, we recommend checking Pollinations AI's specific terms to ensure compliance with their usage policies."
+      },
+      "bestResults": {
+        "question": "How do I get the best results?",
+        "answer": "Provide detailed, specific prompts, choose appropriate styles and aspect ratios, and use negative prompts to exclude unwanted elements for best results. Generate multiple images at once and choose the most satisfying one."
+      },
+      "storage": {
+        "question": "Are the generated images saved?",
+        "answer": "No, we do not store your prompts or generated images on our servers. Once you leave the page or refresh the browser, the generated images will be lost unless you manually download them."
+      },
+      "limits": {
+        "question": "Are there usage limits?",
+        "answer": "Currently, there are no strict usage limits, but we may adjust based on server load. Please use the service reasonably and avoid sending a large number of requests in a short period of time."
+      },
+      "ratios": {
+        "question": "Why offer different aspect ratio options?",
+        "answer": "Different aspect ratios are suitable for different scenarios: square images are ideal for social media avatars, portrait rectangles for mobile wallpapers and posters, and landscape rectangles for desktop wallpapers and banners. We provide multiple options to meet your different needs."
+      }
+    }
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "about": "About Us",
+    "rights": "All Rights Reserved",
+    "poweredBy": "Powered by Pollinations AI"
+  },
+  "styleOptions": {
+    "photorealistic": "Photorealistic",
+    "anime": "Anime Style",
+    "digital-art": "Digital Art",
+    "oil-painting": "Oil Painting",
+    "watercolor": "Watercolor",
+    "pixel-art": "Pixel Art",
+    "fantasy": "Fantasy",
+    "cyberpunk": "Cyberpunk",
+    "abstract": "Abstract Art",
+    "minimalist": "Minimalist"
+  },
+  "aspectRatioOptions": {
+    "square": "Square",
+    "portrait": "Portrait",
+    "landscape": "Landscape"
+  },
+  "language": {
+    "zh-CN": "中文",
+    "en": "English",
+    "ja": "日本語",
+    "ko": "한국어",
+    "select": "Select Language"
+  }
+} 

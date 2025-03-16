@@ -1,0 +1,126 @@
+{
+  "title": "Dome AI - 免费AI图像生成器",
+  "description": "Dome AI是一个免费、无需登录的AI图像生成器，基于Pollinations AI构建，采用科技风格设计。",
+  "nav": {
+    "features": "特性",
+    "gallery": "灵感画廊",
+    "faq": "常见问题"
+  },
+  "hero": {
+    "title": "免费、无限制的AI图像生成",
+    "subtitle": "使用Dome AI，无需登录，无需付费，立即创建令人惊叹的AI生成图像。基于强大的Pollinations AI技术构建。"
+  },
+  "generator": {
+    "prompt": "提示词",
+    "promptPlaceholder": "描述您想要生成的图像...",
+    "style": "风格",
+    "aspectRatio": "图片比例",
+    "negativePrompt": "负面提示词（可选）",
+    "negativePromptPlaceholder": "描述您不想在图像中出现的元素...",
+    "generateButton": "生成图像",
+    "generating": "正在生成3张图像，请稍候...",
+    "estimatedTime": "预计还需 {{countdown}} 秒",
+    "generatedImages": "生成的图像",
+    "downloadImage": "下载图像",
+    "errorGenerating": "生成图像时出错。请稍后再试。",
+    "errorToast": "生成图像失败，请稍后再试！",
+    "promptRequired": "请输入提示词！",
+    "copyPrompt": "提示已复制到剪贴板！",
+    "downloadStarted": "图像下载已开始！",
+    "loadingSlow": "图片加载较慢，正在尝试重新加载...",
+    "failedCount": "{{count}}张图片可能加载较慢，请耐心等待"
+  },
+  "gallery": {
+    "title": "灵感画廊",
+    "subtitle": "探索其他用户使用Dome AI创建的令人惊叹的图像，获取创作灵感。"
+  },
+  "features": {
+    "title": "为什么选择 Dome AI？",
+    "subtitle": "我们提供最简单、最强大的AI图像生成体验，完全免费且无需登录。",
+    "free": {
+      "title": "完全免费",
+      "description": "无需付费即可使用所有功能，没有隐藏费用或订阅。"
+    },
+    "noLogin": {
+      "title": "无需登录",
+      "description": "无需注册或登录即可开始生成图像，保护您的隐私。"
+    },
+    "highQuality": {
+      "title": "高质量输出",
+      "description": "基于Pollinations AI的强大API，生成令人惊叹的高质量图像。"
+    },
+    "styles": {
+      "title": "多样化风格",
+      "description": "支持多种艺术风格、颜色方案和构图选项，满足您的创意需求。"
+    },
+    "batch": {
+      "title": "批量生成",
+      "description": "一次生成多张图像，从中选择最满意的一张，提高效率。"
+    },
+    "ratios": {
+      "title": "多种比例选择",
+      "description": "支持正方形、竖向和横向图片比例，适应不同场景需求。"
+    }
+  },
+  "faq": {
+    "title": "常见问题",
+    "subtitle": "关于Dome AI的常见问题解答。",
+    "questions": {
+      "free": {
+        "question": "Dome AI真的完全免费吗？",
+        "answer": "是的，Dome AI完全免费使用，没有隐藏费用或订阅要求。我们相信AI图像生成应该对所有人开放。"
+      },
+      "commercial": {
+        "question": "我可以将生成的图像用于商业目的吗？",
+        "answer": "是的，您可以将生成的图像用于个人和商业项目。不过，我们建议您查看Pollinations AI的具体条款，以确保符合他们的使用政策。"
+      },
+      "bestResults": {
+        "question": "如何获得最佳结果？",
+        "answer": "提供详细、具体的提示词，选择合适的风格和图片比例，并使用负面提示词排除不需要的元素，这样可以获得最佳结果。一次生成多张图像，从中选择最满意的一张。"
+      },
+      "storage": {
+        "question": "生成的图像会被保存吗？",
+        "answer": "不会，我们不会在服务器上存储您的提示词或生成的图像。一旦您离开页面或刷新浏览器，生成的图像将会丢失，除非您手动下载。"
+      },
+      "limits": {
+        "question": "有使用次数限制吗？",
+        "answer": "目前没有严格的使用次数限制，但我们可能会根据服务器负载情况调整。请合理使用服务，避免短时间内发送大量请求。"
+      },
+      "ratios": {
+        "question": "为什么要提供不同的图片比例选项？",
+        "answer": "不同的图片比例适用于不同的场景：正方形图片适合社交媒体头像，竖向长方形适合手机壁纸和海报，横向长方形适合桌面壁纸和横幅。我们提供多种选项以满足您的不同需求。"
+      }
+    }
+  },
+  "footer": {
+    "privacy": "隐私政策",
+    "terms": "使用条款",
+    "about": "关于我们",
+    "rights": "保留所有权利",
+    "poweredBy": "基于 Pollinations AI 构建"
+  },
+  "styleOptions": {
+    "photorealistic": "写实风格",
+    "anime": "动漫风格",
+    "digital-art": "数字艺术",
+    "oil-painting": "油画风格",
+    "watercolor": "水彩风格",
+    "pixel-art": "像素艺术",
+    "fantasy": "奇幻风格",
+    "cyberpunk": "赛博朋克",
+    "abstract": "抽象艺术",
+    "minimalist": "极简主义"
+  },
+  "aspectRatioOptions": {
+    "square": "正方形",
+    "portrait": "竖向长方形",
+    "landscape": "横向长方形"
+  },
+  "language": {
+    "zh-CN": "中文",
+    "en": "English",
+    "ja": "日本語",
+    "ko": "한국어",
+    "select": "选择语言"
+  }
+} 
